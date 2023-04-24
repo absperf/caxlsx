@@ -227,10 +227,11 @@ module Axlsx
           str << '<colItems count="1"><i/></colItems>'
         end
       else
-        str << ('<colFields count="' << columns.size.to_s << '">')
+        str << ('<colFields count="' << (columns.size + (data.size > 1 ? 1 : 0)).to_s << '">')
         columns.each do |column_value|
           str << ('<field x="' << header_index_of(column_value).to_s << '"/>')
         end
+        str << '<field x="-2"/>' if data.size > 1
         str << '</colFields>'
       end
       unless pages.empty?
